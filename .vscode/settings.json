@@ -1,0 +1,14 @@
+{
+    "rust-analyzer.linkedProjects": [
+        {
+            C:\Users\Perseus\ardu-test\cargo.toml,
+            "crates": [
+                {
+                    "root_module": "src/main.rs",
+                    "edition": "2018",
+                    "deps": [],
+                },
+            ]
+        }
+    ]
+}
