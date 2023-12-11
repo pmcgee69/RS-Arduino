@@ -26,27 +26,33 @@ fn main() -> ! {
 
     let out_string = "Hello World !";
 
+    let mut s = "";
+
+    let mut delay;
 
 // for ch       in out_string      do ;   = Pascal
  
    for ch in out_string.chars() {  
 
-         let _ms = morse::MORSE_CODE[0];    
-         let _c          = ch;
-
          for ms in morse::MORSE_CODE {
-             if ch == ms.0 {
-                
-             };
+             if   ch == ms.0  
+                 { s = ms.1; } 
+             else
+                 { s = "";   }
          }
 
-         {
-            led.toggle();
-            arduino_hal::delay_ms(500);
-         }
+         for blip in s.chars() {
+             match blip {  
+                           '.' => { delay = 200},
+                           '-' => { delay = 500},
+                           _   => { delay = 0}
+                        }
+             led.set_high();
+             arduino_hal::delay_ms(delay);
+             led.set_low();
+         }    
+
     }
-
-    led.set_low();
 
     //loop {}
     panic!()
