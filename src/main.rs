@@ -3,7 +3,11 @@
 
 use panic_halt as _;
 
+mod morse;
+// Text to Morse code LED flasher
+
 #[arduino_hal::entry]
+
 fn main() -> ! {
     let dp   = arduino_hal::Peripherals::take().unwrap();
     let pins = arduino_hal::pins!(dp);
@@ -20,8 +24,31 @@ fn main() -> ! {
 
     let mut led = pins.d13.into_output();
 
-    loop {
-        led.toggle();
-        arduino_hal::delay_ms(500);
+    let out_string = "Hello World !";
+
+
+// for ch       in out_string      do ;   = Pascal
+ 
+   for ch in out_string.chars() {  
+
+         let _ms = morse::MORSE_CODE[0];    
+         let _c          = ch;
+
+         for ms in morse::MORSE_CODE {
+             if ch == ms.0 {
+                
+             };
+         }
+
+         {
+            led.toggle();
+            arduino_hal::delay_ms(500);
+         }
     }
+
+    led.set_low();
+
+    //loop {}
+    panic!()
+
 }
