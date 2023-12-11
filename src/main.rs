@@ -26,7 +26,7 @@ fn main() -> ! {
 
     let out_string = "Hello World !";
 
-    let mut s = "";
+    let mut s : &str;
 
     let mut delay;
 
@@ -34,11 +34,10 @@ fn main() -> ! {
  
    for ch in out_string.chars() {  
 
+         s = "";
          for ms in morse::MORSE_CODE {
              if   ch == ms.0  
-                 { s = ms.1; } 
-             else
-                 { s = "";   }
+                 { s =  ms.1; } 
          }
 
          for blip in s.chars() {
@@ -47,9 +46,8 @@ fn main() -> ! {
                            '-' => { delay = 500},
                            _   => { delay = 0}
                         }
-             led.set_high();
-             arduino_hal::delay_ms(delay);
-             led.set_low();
+             led.set_high();  arduino_hal::delay_ms(delay);
+             led.set_low();   arduino_hal::delay_ms(500);
          }    
 
     }
