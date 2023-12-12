@@ -26,7 +26,7 @@ fn main() -> ! {
 
     let out_string = "HELLO WORLD !";
 
-    let mut s : &str;
+    //\\ let mut s : &str;
 
     let mut delay;
 
@@ -34,22 +34,42 @@ fn main() -> ! {
  
    for ch in out_string.chars() {  
 
-         s = "";
-         for ms in morse::MORSE_CODE {
-             if   ch == ms.0  
-                 { s =  ms.1; } 
-         }
+        //  let mut s = "";
+        //  for ms in morse::MORSE_CODE {
+        //      if   ch == ms.0  
+        //          { s =  ms.1; } 
 
-         for blip in s.chars() {
-             match blip {  
-                           '.' => { delay = 200},
-                           '-' => { delay = 500},
-                           _   => { delay = 0}
-                        }
-                        
-             led.set_high();  arduino_hal::delay_ms(delay);
-             led.set_low();   arduino_hal::delay_ms(500);
-         }    
+        //  }
+
+        let dict 
+               = morse::MORSE_CODE.iter()
+                                  .find( | (mch, _) | { ch == *mch } );
+
+        // if dict.is_some() {        
+        //             for blip in dict.unwrap().1.chars() {
+        //                 match blip {  
+        //                             '.' => { delay = 200},
+        //                             '-' => { delay = 500},
+        //                             _   => { delay = 0}
+        //                             }
+                                    
+        //                 led.set_high();  arduino_hal::delay_ms(delay);
+        //                 led.set_low();   arduino_hal::delay_ms(delay);
+        //             }
+        // }
+
+        if let Some(s) = dict {        
+            for blip in s.1.chars() {
+                match blip {  
+                            '.' => { delay = 200},
+                            '-' => { delay = 500},
+                            _   => { delay = 0}
+                            }
+                            
+                led.set_high();  arduino_hal::delay_ms(delay);
+                led.set_low();   arduino_hal::delay_ms(delay);
+            }
+}        
 
     }
 
